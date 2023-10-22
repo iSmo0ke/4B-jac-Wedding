@@ -1,8 +1,5 @@
 <?php
-                require_once './controladores/formularios.controlador.php'
-                ?>
-<?php
-
+//require_once './controladores/formularios.controlador.php'
 if (isset($_GET["token"])) {
     $item = "token";
     $valor = $_GET["token"];
@@ -10,7 +7,6 @@ if (isset($_GET["token"])) {
     $usuario = ControladorFormularios::ctrSeleccionarRegistros($item, $valor);
     //echo '<pre>'; print_r($usuario); '</pre>';
 }
-
 ?>
 
 <div class="d-flex justify-content-center text-center">
@@ -44,56 +40,47 @@ if (isset($_GET["token"])) {
                 </div>
                 <input type="password" class="form-control"  placeholder="Enter password" id="pwd" name="actualizarPassword">
 
-                <input type="hidden" name="passwordActual" value=" 
-                <?php
-                echo $usuario["password"]
-                ?>">
+                <input type="hidden" name="passwordActual" value="<?php echo $usuario["password"]; ?>">
+                <input type="hidden" name="tokenUsuario" value="<?php echo $usuario["token"]; ?>">
 
-                <input type="hidden" name="tokenUsuario" value=" 
-                <?php
-                echo $usuario["token"]
-                ?>">
-
-                <input type="hidden" name="nombreActual" value=" 
-                <?php
-                echo $usuario["nombre"]
-                ?>">
-
-                <input type="hidden" name="emailActuual" value=" 
-                <?php
-                echo $usuario["email"]
-                ?>">
+                <input type="hidden" name="nombreActual" value="<?php echo $usuario["nombre"]; ?>">
+                <input type="hidden" name="emailActual" value="<?php echo $usuario["email"]; ?>">
             </div>
         </div>
 
         <?php
             $actualizar = ControladorFormularios::ctrActualizarRegistro();
-            if ($actualizar == "ok") {
+            if ($actualizar == "ok"){
                 echo '<script>
-                    if(window.history.replaceState){
-                        window.history.replaceState(null, null, window.location.href)
-                    }
+
+                if(window.history.replaceState){
+                    window.history.replaceState(null, null, window.location.href);
+                }
+                
                 </script>';
-                echo '<div class="alert alert-success">El usuario ha sido actualizado</div>
+                
+                echo'<div class="alert alert-success">El usuario ha sido actualizado</div>
                 <script>
                     setTimeout(function(){
                         window.location = "index.php?pagina=inicio";
-                    }, 1600);
+                    }, 500);
                 </script>';
             }
-            if ($actualizar == "error") {
+
+
+            if($actualizar == "error"){
                 echo '<script>
                 if(window.history.replaceState){
-                    window.history.replaceState(null, null, window.location.href)
+                    window.history.replaceState(null, null, window.location.href);
                 }
                 </script>';
-                echo '<div class="alert alert-danger">Error al actualizar usuario</div>';
+                
+                echo'<div class="alert alert-danger">Error al actualizar usuario</div>';
             }
 
         ?>
 
-        <button type="submit" class="btn btn-primary">Actualizar</button>
-
+        <button type="submit" class="btn btn-primary">Actualizar datos</button>
     </form>
 </div>
 
